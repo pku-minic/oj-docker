@@ -28,7 +28,7 @@ ENV RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 ENV PATH=/root/.cargo/bin:$PATH
 
 # set GitHub proxy
-RUN git config --global url."https://hub.fastgit.org/".insteadOf "https://github.com/" && \
+RUN git config --global url."https://github.com.cnpmjs.org/".insteadOf "https://github.com/" && \
     git config --global protocol.https.allow always
 
 # pull & compile MiniVM
@@ -40,7 +40,9 @@ ENV PATH=${MINIVM_REPO_PATH}/build:$PATH
 
 # pull SysY runtime library
 RUN git clone --recursive --shallow-submodules --single-branch --depth 1 \
-    ${SYSYRT_REPO_URL} ${SYSYRT_REPO_PATH}
+    ${SYSYRT_REPO_URL} ${SYSYRT_REPO_PATH} && \
+    cd ${SYSYRT_REPO_PATH} && \
+    git checkout ac3ef983fb71e076223045e77195ffff2cd4bc91
 
 # copy 32-bit RISC-V GNU toolchain from 'riscv32-toolchain'
 COPY --from=maxxing/riscv32-toolchain ${RISCV32_PATH} ${RISCV32_PATH}
