@@ -39,8 +39,7 @@ RUN cmake .. && make -j`nproc`
 ENV PATH=${MINIVM_REPO_PATH}/build:$PATH
 
 # pull SysY runtime library
-RUN git clone --recursive --shallow-submodules --single-branch --depth 1 \
-    ${SYSYRT_REPO_URL} ${SYSYRT_REPO_PATH} && \
+RUN git clone ${SYSYRT_REPO_URL} ${SYSYRT_REPO_PATH} && \
     cd ${SYSYRT_REPO_PATH} && \
     git checkout ac3ef983fb71e076223045e77195ffff2cd4bc91
 
